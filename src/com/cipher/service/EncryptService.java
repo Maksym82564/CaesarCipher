@@ -6,7 +6,7 @@ public class EncryptService extends CipherService {
     public EncryptService(String path) {
         super(path);
     }
-    public void cipherFile(int key) {
-        super.cipherFile(key, Mode.ENCRYPTION, "[ENCRYPTED]");
+    public void encryptFile(int key) {
+        this.cipherFile(key, Mode.ENCRYPTION, "[ENCRYPTED]");
     }
 }

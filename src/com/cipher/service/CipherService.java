@@ -6,9 +6,14 @@ import com.cipher.model.Mode;
 import java.util.Map;
 
 public class CipherService {
-    protected final FileService fileService;
-    protected final Language language;
-    protected final String originalText;
+    private final FileService fileService;
+    private final Language language;
+    private final String originalText;
+
+    public Language getLanguage() {
+        return language;
+    }
+
     public CipherService(String originalFilePath) {
         this.fileService = new FileService(originalFilePath);
         this.originalText =  this.fileService.readFile();
@@ -35,7 +40,7 @@ public class CipherService {
         }
         return cipherText.toString();
     }
-    public void cipherFile(int key, Mode mode, String status) {
+    protected void cipherFile(int key, Mode mode, String status) {
         this.fileService.writeNewFile(this.cipherText(key, mode), status);
     }
 }
