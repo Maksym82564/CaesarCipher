@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public class BruteForceService extends CipherService {
+    private static final int decryptFailed = 0;
+    private static final int matchThreshold = 15;
+    private static final double allowedFreqDiff = 0.015;
     private final List<Double> letterFreqAnalysis;
     public BruteForceService(String filePath, String filePathForAnalysis) {
         super(filePath);
@@ -18,7 +21,7 @@ public class BruteForceService extends CipherService {
     public void bruteForceFile() {
         int key = this.bruteForceDecryption();
         String status;
-        if (key == 0) {
+        if (key == decryptFailed) {
             status = "[FAILED]";
         }
         else {
@@ -29,6 +32,7 @@ public class BruteForceService extends CipherService {
 
     //Search for right key
     private int bruteForceDecryption() {
+
         for (int i = 1; i < getLanguage().getAlphabet().size(); i++) {
             String decryptedText = cipherText(i, Mode.DECRYPTION);
             Map<Character, Double> bruteForcedFreqMap = calcLetterFreq(decryptedText);
@@ -38,7 +42,7 @@ public class BruteForceService extends CipherService {
                 return i;
             }
         }
-        return 0;
+        return decryptFailed;
     }
 
     //Parsing text into letter-frequency map
@@ -83,9 +87,9 @@ public class BruteForceService extends CipherService {
     private boolean compareFreq(List<Double> analyzed, List<Double> bruteForced) {
         int matchCounter = 0;
         for (int i = 0; i < analyzed.size(); i++) {
-            if (Math.abs(analyzed.get(i) - bruteForced.get(i)) <= 0.015)
+            if (Math.abs(analyzed.get(i) - bruteForced.get(i)) <= allowedFreqDiff)
                 matchCounter++;
         }
-        return matchCounter >= 15;
+        return matchCounter >= matchThreshold;
     }
 }

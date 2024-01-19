@@ -10,14 +10,13 @@ public class CipherService {
     private final Language language;
     private final String originalText;
 
-    public Language getLanguage() {
-        return language;
-    }
-
     public CipherService(String originalFilePath) {
         this.fileService = new FileService(originalFilePath);
         this.originalText =  this.fileService.readFile();
         this.language = Language.detectLanguage(this.originalText);
+    }
+    public Language getLanguage() {
+        return language;
     }
     protected String cipherText(int key, Mode mode) {
         Map<Character, Character> cipherMap = MappingHelper.fillMap(key, this.language, mode);
