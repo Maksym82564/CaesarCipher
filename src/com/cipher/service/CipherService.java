@@ -15,9 +15,11 @@ public class CipherService {
         this.originalText =  this.fileService.readFile();
         this.language = Language.detectLanguage(this.originalText);
     }
+
     public Language getLanguage() {
         return language;
     }
+
     protected String cipherText(int key, Mode mode) {
         Map<Character, Character> cipherMap = MappingHelper.fillMap(key, this.language, mode);
         StringBuilder cipherText = new StringBuilder();
@@ -39,6 +41,7 @@ public class CipherService {
         }
         return cipherText.toString();
     }
+
     protected void cipherFile(int key, Mode mode, String status) {
         this.fileService.writeNewFile(this.cipherText(key, mode), status);
     }

@@ -20,9 +20,9 @@ public class MappingHelper {
         for (int i = 0; i < alphabet.size(); i++) {
             char value;
             int calcBuf = i + key;
-            if (calcBuf < alphabet.size()) {  //ascending, key = 25 orig = 'a' encrypt = 'z'
+            if (calcBuf < alphabet.size()) {
                 value = alphabet.get(calcBuf);
-            } else {                          //descending, key = 25 orig = 'b' encrypt = 'a'
+            } else {
                 value = alphabet.get(calcBuf - alphabet.size());
             }
             encryptMap.put(alphabet.get(i), value);
@@ -37,9 +37,9 @@ public class MappingHelper {
         for (int i = 0; i < alphabet.size(); i++) {
             char value;
             int calcBuf = i - key;
-            if (calcBuf < 0) {     //ascending, key = 25 orig = 'a' decrypt = 'b'
+            if (calcBuf < 0) {
                 value = alphabet.get(calcBuf + alphabet.size());
-            } else {               //descending, key = 25 orig = 'z' decrypt = 'a'
+            } else {
                 value = alphabet.get(calcBuf);
             }
             decryptMap.put(alphabet.get(i), value);

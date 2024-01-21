@@ -4,9 +4,11 @@ import java.io.*;
 
 public class FileService {
     private final String path;
+
     public FileService(String path) {
         this.path = path;
     }
+
     public String readFile() {
         StringBuilder stringBuilder = new StringBuilder();
         try (FileReader fileReader = new FileReader(this.path);
@@ -17,12 +19,12 @@ public class FileService {
                 stringBuilder.append(line);
                 stringBuilder.append("\n");
             }
-        }
-        catch (IOException e) {
-            throw new RuntimeException("Invalid file path");
+        } catch (IOException e) {
+            System.err.println("Invalid file path");
         }
         return stringBuilder.toString();
     }
+
     public void writeNewFile(String text, String status) {
         int buf = this.path.lastIndexOf('.');
         String newPath = this.path.substring(0, buf) + status + this.path.substring(buf);
@@ -30,9 +32,8 @@ public class FileService {
              BufferedWriter writer = new BufferedWriter(fileWriter)
         ) {
             writer.write(text);
-        }
-        catch (IOException e) {
-            throw new RuntimeException("Couldn't reach the file");
+        } catch (IOException e) {
+            System.err.println("Couldn't write new file");
         }
     }
 }

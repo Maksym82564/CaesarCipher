@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 public class BruteForceService extends CipherService {
-    private static final int decryptFailed = 0;
-    private static final int matchThreshold = 15;
-    private static final double allowedFreqDiff = 0.015;
+    private static final int DECRYPT_FAILED = 0;
+    private static final int MATCH_THRESHOLD = 15;
+    private static final double ALLOWED_FREQ_DIFF = 0.015;
+    private static final double NO_SUCH_LETTER = 0.0;
     private final List<Double> letterFreqAnalysis;
+
     public BruteForceService(String filePath, String filePathForAnalysis) {
         super(filePath);
         FileService file = new FileService(filePathForAnalysis);
@@ -21,7 +23,7 @@ public class BruteForceService extends CipherService {
     public void bruteForceFile() {
         int key = this.bruteForceDecryption();
         String status;
-        if (key == decryptFailed) {
+        if (key == DECRYPT_FAILED) {
             status = "[FAILED]";
         }
         else {
@@ -30,7 +32,6 @@ public class BruteForceService extends CipherService {
         this.cipherFile(key, Mode.DECRYPTION, status);
     }
 
-    //Search for right key
     private int bruteForceDecryption() {
 
         for (int i = 1; i < getLanguage().getAlphabet().size(); i++) {
@@ -42,10 +43,9 @@ public class BruteForceService extends CipherService {
                 return i;
             }
         }
-        return decryptFailed;
+        return DECRYPT_FAILED;
     }
 
-    //Parsing text into letter-frequency map
     private Map<Character, Double> calcLetterFreq(String text) {
         Map<Character, Integer> letterCount = new HashMap<>();
         for (char ch : text.toCharArray()) {
@@ -69,7 +69,6 @@ public class BruteForceService extends CipherService {
         return letterFrequencyMap;
     }
 
-    //letterFreqMap to letterFreqList according to letter placement in alphabet
     private List<Double> freqMapToList(Map<Character, Double> letterFreqMap, List<Character> alphabet) {
         List<Double> freqList = new ArrayList<>();
         for (Character letter : alphabet) {
@@ -77,19 +76,18 @@ public class BruteForceService extends CipherService {
                 double freq = letterFreqMap.get(letter);
                 freqList.add(freq);
             } else {
-                freqList.add(0.0);
+                freqList.add(NO_SUCH_LETTER);
             }
         }
         return freqList;
     }
 
-    //Comparison of static analysis values and input text values
     private boolean compareFreq(List<Double> analyzed, List<Double> bruteForced) {
         int matchCounter = 0;
         for (int i = 0; i < analyzed.size(); i++) {
-            if (Math.abs(analyzed.get(i) - bruteForced.get(i)) <= allowedFreqDiff)
+            if (Math.abs(analyzed.get(i) - bruteForced.get(i)) <= ALLOWED_FREQ_DIFF)
                 matchCounter++;
         }
-        return matchCounter >= matchThreshold;
+        return matchCounter >= MATCH_THRESHOLD;
     }
 }
