@@ -5,18 +5,18 @@ import com.cipher.model.Mode;
 
 import java.util.Map;
 
-public class CipherService {
+class CipherService {
     private final FileService fileService;
     private final Language language;
     private final String originalText;
 
-    public CipherService(String originalFilePath) {
+    protected CipherService(String originalFilePath) {
         fileService = new FileService(originalFilePath);
         originalText = fileService.readFile();
         language = Language.detectLanguage(originalText);
     }
 
-    public Language getLanguage() {
+    protected Language getLanguage() {
         return language;
     }
 
