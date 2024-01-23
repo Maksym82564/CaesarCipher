@@ -11,9 +11,9 @@ public class CipherService {
     private final String originalText;
 
     public CipherService(String originalFilePath) {
-        this.fileService = new FileService(originalFilePath);
-        this.originalText =  this.fileService.readFile();
-        this.language = Language.detectLanguage(this.originalText);
+        fileService = new FileService(originalFilePath);
+        originalText = fileService.readFile();
+        language = Language.detectLanguage(originalText);
     }
 
     public Language getLanguage() {
@@ -21,21 +21,19 @@ public class CipherService {
     }
 
     protected String cipherText(int key, Mode mode) {
-        Map<Character, Character> cipherMap = MappingHelper.fillMap(key, this.language, mode);
+        key = key % language.getAlphabet().size();
+        Map<Character, Character> cipherMap = MappingHelper.fillMap(key, language, mode);
         StringBuilder cipherText = new StringBuilder();
-
-        for (char character : this.originalText.toCharArray()) {
+        for (char character : originalText.toCharArray()) {
             if (Character.isLetter(character)) {
                 if (Character.isLowerCase(character)) {
                     char upperCase = Character.toUpperCase(character);
                     char encryptedLetter = Character.toLowerCase(cipherMap.get(upperCase));
                     cipherText.append(encryptedLetter);
-                }
-                else {
+                } else {
                     cipherText.append(cipherMap.get(character));
                 }
-            }
-            else {
+            } else {
                 cipherText.append(character);
             }
         }
@@ -43,6 +41,6 @@ public class CipherService {
     }
 
     protected void cipherFile(int key, Mode mode, String status) {
-        this.fileService.writeNewFile(this.cipherText(key, mode), status);
+        fileService.writeNewFile(cipherText(key, mode), status);
     }
 }
