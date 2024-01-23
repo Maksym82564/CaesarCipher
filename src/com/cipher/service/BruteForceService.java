@@ -1,6 +1,7 @@
 package com.cipher.service;
 
 import com.cipher.model.Mode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,19 +22,17 @@ public class BruteForceService extends CipherService {
     }
 
     public void bruteForceFile() {
-        int key = this.bruteForceDecryption();
+        int key = bruteForceDecryption();
         String status;
         if (key == DECRYPT_FAILED) {
             status = "[FAILED]";
-        }
-        else {
+        } else {
             status = "[KEY=" + key + "]";
         }
-        this.cipherFile(key, Mode.DECRYPTION, status);
+        cipherFile(key, Mode.DECRYPTION, status);
     }
 
     private int bruteForceDecryption() {
-
         for (int i = 1; i < getLanguage().getAlphabet().size(); i++) {
             String decryptedText = cipherText(i, Mode.DECRYPTION);
             Map<Character, Double> bruteForcedFreqMap = calcLetterFreq(decryptedText);
@@ -85,8 +84,10 @@ public class BruteForceService extends CipherService {
     private boolean compareFreq(List<Double> analyzed, List<Double> bruteForced) {
         int matchCounter = 0;
         for (int i = 0; i < analyzed.size(); i++) {
-            if (Math.abs(analyzed.get(i) - bruteForced.get(i)) <= ALLOWED_FREQ_DIFF)
+            double diff = Math.abs(analyzed.get(i) - bruteForced.get(i));
+            if (diff <= ALLOWED_FREQ_DIFF) {
                 matchCounter++;
+            }
         }
         return matchCounter >= MATCH_THRESHOLD;
     }

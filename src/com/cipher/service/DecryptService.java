@@ -8,6 +8,6 @@ public class DecryptService extends CipherService {
     }
 
     public void decryptFile(int key) {
-        this.cipherFile(key, Mode.DECRYPTION, "[DECRYPTED]");
+        cipherFile(key, Mode.DECRYPTION, "[DECRYPTED]");
     }
 }

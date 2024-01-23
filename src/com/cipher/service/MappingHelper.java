@@ -16,7 +16,6 @@ public class MappingHelper {
     private static HashMap<Character, Character> fillEncryptMap(int key, Language language) {
         HashMap<Character, Character> encryptMap = new HashMap<>();
         var alphabet = language.getAlphabet();
-
         for (int i = 0; i < alphabet.size(); i++) {
             char value;
             int calcBuf = i + key;
@@ -33,7 +32,6 @@ public class MappingHelper {
     private static HashMap<Character, Character> fillDecryptMap(int key, Language language) {
         HashMap<Character, Character> decryptMap = new HashMap<>();
         var alphabet = language.getAlphabet();
-
         for (int i = 0; i < alphabet.size(); i++) {
             char value;
             int calcBuf = i - key;

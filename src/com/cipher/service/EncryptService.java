@@ -8,6 +8,6 @@ public class EncryptService extends CipherService {
     }
 
     public void encryptFile(int key) {
-        this.cipherFile(key, Mode.ENCRYPTION, "[ENCRYPTED]");
+        cipherFile(key, Mode.ENCRYPTION, "[ENCRYPTED]");
     }
 }

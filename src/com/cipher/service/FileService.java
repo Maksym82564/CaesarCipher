@@ -11,7 +11,7 @@ public class FileService {
 
     public String readFile() {
         StringBuilder stringBuilder = new StringBuilder();
-        try (FileReader fileReader = new FileReader(this.path);
+        try (FileReader fileReader = new FileReader(path);
              BufferedReader reader = new BufferedReader(fileReader)
         ) {
             String line;
@@ -26,8 +26,8 @@ public class FileService {
     }
 
     public void writeNewFile(String text, String status) {
-        int buf = this.path.lastIndexOf('.');
-        String newPath = this.path.substring(0, buf) + status + this.path.substring(buf);
+        int buf = path.lastIndexOf('.');
+        String newPath = path.substring(0, buf) + status + path.substring(buf);
         try (FileWriter fileWriter = new FileWriter(newPath);
              BufferedWriter writer = new BufferedWriter(fileWriter)
         ) {
