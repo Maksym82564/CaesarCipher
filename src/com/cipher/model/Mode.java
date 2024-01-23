@@ -2,5 +2,6 @@ package com.cipher.model;
 
 public enum Mode {
     ENCRYPTION,
-    DECRYPTION
+    DECRYPTION,
+    BRUTE_FORCE
 }

@@ -10,6 +10,7 @@ public class MappingHelper {
         return switch (mode) {
             case ENCRYPTION -> fillEncryptMap(key, language);
             case DECRYPTION -> fillDecryptMap(key, language);
+            default -> null;
         };
     }
 
