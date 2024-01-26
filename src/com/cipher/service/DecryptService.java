@@ -3,11 +3,17 @@ package com.cipher.service;
 import com.cipher.model.Mode;
 
 public class DecryptService extends CipherService {
-    public DecryptService(String path) {
+    private final static Mode MODE = Mode.DECRYPTION;
+    private final static String STATUS = "[DECRYPTED]";
+    private final int key;
+
+    public DecryptService(String path, int key) {
         super(path);
+        this.key = key;
     }
 
-    public void decryptFile(int key) {
-        cipherFile(key, Mode.DECRYPTION, "[DECRYPTED]");
+    @Override
+    public void cipher() {
+        cipherFile(key, MODE, STATUS);
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BruteForceService extends CipherService {
+    private final static Mode MODE = Mode.DECRYPTION;
     private static final int DECRYPT_FAILED = 0;
     private static final int MATCH_THRESHOLD = 15;
     private static final double ALLOWED_FREQ_DIFF = 0.015;
@@ -21,15 +22,19 @@ public class BruteForceService extends CipherService {
         letterFreqAnalysis = freqMapToList(calcLetterFreq(strForAnalysis), getLanguage().getAlphabet());
     }
 
-    public void bruteForceFile() {
+    @Override
+    public void cipher() {
         int key = bruteForceDecryption();
-        String status;
+        String status = findStatus(key);
+        cipherFile(key, MODE, status);
+    }
+
+    private String findStatus(int key) {
         if (key == DECRYPT_FAILED) {
-            status = "[FAILED]";
+            return "[FAILED]";
         } else {
-            status = "[KEY=" + key + "]";
+            return "[KEY=" + key + "]";
         }
-        cipherFile(key, Mode.DECRYPTION, status);
     }
 
     private int bruteForceDecryption() {

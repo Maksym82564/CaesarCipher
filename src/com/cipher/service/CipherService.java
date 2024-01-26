@@ -5,7 +5,7 @@ import com.cipher.model.Mode;
 
 import java.util.Map;
 
-class CipherService {
+public abstract class CipherService {
     private final FileService fileService;
     private final Language language;
     private final String originalText;
@@ -43,4 +43,6 @@ class CipherService {
     protected void cipherFile(int key, Mode mode, String status) {
         fileService.writeNewFile(cipherText(key, mode), status);
     }
+
+    public abstract void cipher();
 }
