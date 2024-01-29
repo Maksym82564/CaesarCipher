@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class BruteForceService extends CipherService {
     private final static Mode MODE = Mode.DECRYPTION;
-    private static final int DECRYPT_FAILED = 0;
+    private static final int BRUTE_FORCE_FAILED = 0;
     private static final int MATCH_THRESHOLD = 15;
     private static final double ALLOWED_FREQ_DIFF = 0.015;
     private static final double NO_SUCH_LETTER = 0.0;
@@ -30,7 +30,7 @@ public class BruteForceService extends CipherService {
     }
 
     private String findStatus(int key) {
-        if (key == DECRYPT_FAILED) {
+        if (key == BRUTE_FORCE_FAILED) {
             return "[FAILED]";
         } else {
             return "[KEY=" + key + "]";
@@ -47,7 +47,7 @@ public class BruteForceService extends CipherService {
                 return i;
             }
         }
-        return DECRYPT_FAILED;
+        return BRUTE_FORCE_FAILED;
     }
 
     private Map<Character, Double> calcLetterFreq(String text) {
