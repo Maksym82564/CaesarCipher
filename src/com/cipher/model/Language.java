@@ -35,6 +35,7 @@ public enum Language {
             }
             if (detectedLang) return language;
         }
-        throw new InvalidArgumentException("Unable to recognize language");
+        System.err.println("Unable to recognize language");
+        return null;
     }
 }
