@@ -1,4 +1,4 @@
-package com.cipher.controller;
+package com.cipher.runner;
 
 import com.cipher.model.Mode;
 import com.cipher.service.BruteForceService;
@@ -7,15 +7,15 @@ import com.cipher.service.DecryptService;
 import com.cipher.service.EncryptService;
 import com.cipher.validation.InputValidation;
 
-public class ProgramController {
+public class ProgramRunner {
     private static final int COMMAND_POSITION = 0;
     private static final int FILE_PATH_POSITION = 1;
     private static final int KEY_POSITION = 2;
     private static final int ANALYSIS_FILE_PATH_POSITION = 2;
 
-    private String[] args;
+    private final String[] args;
 
-    public ProgramController(String[] args) {
+    public ProgramRunner(String[] args) {
         this.args = args;
     }
 
