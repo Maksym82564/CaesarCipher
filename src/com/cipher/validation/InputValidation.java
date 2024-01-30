@@ -6,27 +6,25 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class InputValidation {
-    private static final int MAX_ARGUMENTS = 3;
-    public static void argsNumber(int size) {
-        if (size != MAX_ARGUMENTS) {
+    public static void argsNumber(int size, int supposedArgsNumber) {
+        if (size != supposedArgsNumber) {
             throw new InvalidArgumentException("Incorrect number of arguments");
         }
     }
-    public static Mode command(String command) {
+
+    public static void command(String command) {
         for (Mode mode : Mode.values()) {
             if (mode.toString().equals(command)) {
-                return Mode.valueOf(command);
+                return;
             }
         }
         throw new InvalidArgumentException("Invalid command");
     }
 
-    public static int key(String keyStr) {
-        int key = Integer.parseInt(keyStr);
+    public static void key(int key) {
         if (key < 0) {
             throw new InvalidArgumentException("Invalid key");
         }
-        return key;
     }
 
     public static void filePath(String path) {
