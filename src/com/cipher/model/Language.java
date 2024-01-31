@@ -1,6 +1,5 @@
 package com.cipher.model;
 
-import com.cipher.exception.InvalidArgumentException;
 import java.util.Arrays;
 import java.util.List;
 

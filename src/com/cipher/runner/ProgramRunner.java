@@ -7,8 +7,7 @@ import com.cipher.validation.ArgsValidation;
 public class ProgramRunner {
     public void run(String[] args) {
         ArgsManager argsManager = new ArgsManager(args);
-        ArgsValidation ArgsValidation = new ArgsValidation(argsManager);
-        ArgsValidation.validateArgs();
+        new ArgsValidation(argsManager).validateArgs();
         CipherFactory.getCipherInstance(argsManager).cipher();
     }
 }
