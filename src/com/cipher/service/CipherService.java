@@ -10,17 +10,17 @@ public abstract class CipherService {
     private final Language language;
     private final String originalText;
 
-    protected CipherService(String originalFilePath) {
+    CipherService(String originalFilePath) {
         fileService = new FileService(originalFilePath);
         originalText = fileService.readFile();
         language = Language.detectLanguage(originalText);
     }
 
-    protected Language getLanguage() {
+    Language getLanguage() {
         return language;
     }
 
-    protected String cipherText(int key, Mode mode) {
+    String cipherText(int key, Mode mode) {
         key = key % language.getAlphabet().size();
         Map<Character, Character> cipherMap = MappingHelper.fillMap(key, language, mode);
         StringBuilder cipherText = new StringBuilder();
@@ -40,7 +40,7 @@ public abstract class CipherService {
         return cipherText.toString();
     }
 
-    protected void cipherFile(int key, Mode mode, String status) {
+    void cipherFile(int key, Mode mode, String status) {
         fileService.writeNewFile(cipherText(key, mode), status);
     }
 
